@@ -16,7 +16,7 @@ var breweries=[];
         map = new google.maps.Map(document.getElementById('gmap'), {zoom: 11, center: mainloc}); 
         $("#zip-error").empty();    
         var zip=20009;
-        var radius=15000;
+        var radius=20000;
         var rating=0;
         var breweries=[];
         var offset=0;
@@ -25,7 +25,7 @@ var breweries=[];
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=50",
+                "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&radius=20000&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=50",
                 "method": "GET",
                 "headers": {
                   "Authorization": "Bearer 8D_mZteQabQeW-jEZAK4kU4o9h7PhhECcqPsritDt99eippSSN851BkePtOuCLpVShTshzeKUUKDiHj51cX4vJMN0YZY_tPNJVTsapTBgoWt0dErzhHH1psW0FYKXXYx",
@@ -36,7 +36,15 @@ var breweries=[];
         
               $.ajax(settings).then(function(response) {
         
-        var brewPages = Math.floor((response.businesses.length) / 10) + 1;
+                var brewPages=0;
+        if(((response.businesses.length) % 10) === 0 ){
+            brewPages=(response.businesses.length) / 10;
+
+        } else {
+            brewPages = Math.floor((response.businesses.length) / 10) + 1;
+        }
+
+        
         console.log("initial number of pages is " + brewPages)
        
         console.log("number of businesses is " + response.businesses.length )
@@ -90,7 +98,7 @@ var breweries=[];
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=10&offset=" +offset ,
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&radius=20000&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=10&offset=" +offset ,
             "method": "GET",
             "headers": {
               "Authorization": "Bearer 8D_mZteQabQeW-jEZAK4kU4o9h7PhhECcqPsritDt99eippSSN851BkePtOuCLpVShTshzeKUUKDiHj51cX4vJMN0YZY_tPNJVTsapTBgoWt0dErzhHH1psW0FYKXXYx",
