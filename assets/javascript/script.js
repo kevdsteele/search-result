@@ -178,7 +178,7 @@ var breweries=[];
     
             function createMarker(loc,brewName,brewAdd, brewPh, label, brewRat) { 
             
-            var marker = new google.maps.Marker({position: loc, label: label , map: map, value:i});
+            var marker = new google.maps.Marker({position: loc, label: label , map: map, id:"marker"+i});
        
            
             google.maps.event.addListener(marker, 'click', function() {
@@ -192,8 +192,10 @@ var breweries=[];
      }
 
 
+$("#media"+i).on("click", function () {
 
-
+    $("#marker"+ this.value).setAnimation(google.maps.Animation.BOUNCE);
+});
 
     
    
