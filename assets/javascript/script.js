@@ -1,11 +1,7 @@
 
 $(document).ready(function () {
 
-    $(".media").on("click", function () {
-        console.log("media clicked");
-    
-        $("#marker"+ $(this).val(value)).setAnimation(google.maps.Animation.BOUNCE);
-    });
+ 
        
 
 
@@ -22,7 +18,9 @@ var breweries=[];
         var zip=20009;
         var radius=15000;
         var rating=0;
-        breweries=[];
+        var breweries=[];
+        var offset=0;
+      
         
         
        /* console.log("Search clicked")
@@ -32,13 +30,26 @@ var breweries=[];
     
         console.log("zip is " + zip)
         console.log("radius is " + radius)*/
+
+    $(".page-item").on("click", function (){
+    breweries=[];
+    map = new google.maps.Map(document.getElementById('gmap'), {zoom: 11, center: mainloc}); 
+    offset=$(this).attr("value");
     
-      
+    console.log("offset clicked valie is " + $(this).attr("value"));
+
+    console.log("offset is " + offset)
+
+    getBreweries(offset, zip)
+
+    })
     
+    function getBreweries (offset,zip) { 
+    $("#results").empty();
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=50",
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=10&offset=" +offset ,
             "method": "GET",
             "headers": {
               "Authorization": "Bearer 8D_mZteQabQeW-jEZAK4kU4o9h7PhhECcqPsritDt99eippSSN851BkePtOuCLpVShTshzeKUUKDiHj51cX4vJMN0YZY_tPNJVTsapTBgoWt0dErzhHH1psW0FYKXXYx",
@@ -70,10 +81,10 @@ var breweries=[];
           
             
           });
-    
-
+    /* end get breweries */
+        };
           
-          
+       
     
     function createBrews(breweries) {
         
@@ -166,6 +177,8 @@ var breweries=[];
        $("#bar-rat"+i).append(barStarOuterDiv);
        $("#stars-outer"+i).append(barStarInnerDiv);
 
+  
+
 
             
             
@@ -182,7 +195,7 @@ var breweries=[];
     
             function createMarker(loc,brewName,brewAdd, brewPh, label, brewRat) { 
             
-            var marker = new google.maps.Marker({position: loc, label: label , map: map, id:"marker"+i});
+            var marker = new google.maps.Marker({position: loc, label: label , map: map, id:"marker"+i, animation:google.maps.Animation.DROP});
        
            
             google.maps.event.addListener(marker, 'click', function() {
@@ -193,6 +206,7 @@ var breweries=[];
          }
      
         }
+  
      }
 
 
