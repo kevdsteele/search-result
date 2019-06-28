@@ -4,7 +4,7 @@ $(document).ready(function () {
     $(".media").on("click", function () {
         console.log("media clicked");
     
-        $("#marker"+ $(this).value).setAnimation(google.maps.Animation.BOUNCE);
+        $("#marker"+ $(this).val(value)).setAnimation(google.maps.Animation.BOUNCE);
     });
        
 
