@@ -17,7 +17,7 @@ var breweries=[];
         $("#zip-error").empty();    
         var zip=20009;
         var radius=15000;
-        var rating=3;
+        var rating=0;
         breweries=[];
         
         
@@ -34,7 +34,7 @@ var breweries=[];
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&term=breweries&categories=breweries&radius=" + radius +"&rating=4&limit=10&sort_by=distance",
+            "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=50",
             "method": "GET",
             "headers": {
               "Authorization": "Bearer 8D_mZteQabQeW-jEZAK4kU4o9h7PhhECcqPsritDt99eippSSN851BkePtOuCLpVShTshzeKUUKDiHj51cX4vJMN0YZY_tPNJVTsapTBgoWt0dErzhHH1psW0FYKXXYx",
