@@ -80,6 +80,7 @@ var breweries=[];
        var mediaDiv=$("<div>");
        mediaDiv.addClass("media");
        mediaDiv.attr("id", "media"+i);
+       mediaDiv.atrr("value", i);
 
        $("#results").append(mediaDiv);
 
@@ -177,7 +178,7 @@ var breweries=[];
     
             function createMarker(loc,brewName,brewAdd, brewPh, label, brewRat) { 
             
-            var marker = new google.maps.Marker({position: loc, label: label , map: map});
+            var marker = new google.maps.Marker({position: loc, label: label , map: map, value:i});
        
            
             google.maps.event.addListener(marker, 'click', function() {
