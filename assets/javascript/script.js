@@ -56,7 +56,7 @@ var breweries=[];
                 navLi.attr("value", offset);
                 navLi.text(i);
                 $("#search-nav").append(navLi);
-                offset+=10;
+                offset=parseInt(offset+10);
 
             }
     
@@ -75,7 +75,7 @@ var breweries=[];
    $(document).on ("click", ".page-link", function (){
     breweries=[];
     map = new google.maps.Map(document.getElementById('gmap'), {zoom: 11, center: mainloc}); 
-    offset=$(this).attr("value");
+    offset=parseInt($(this).attr("value"));
     
     console.log("offset clicked valie is " + $(this).attr("value"));
 
@@ -116,7 +116,7 @@ var breweries=[];
         
          
           console.log(breweries);
-          createBrews(breweries);
+          createBrews(breweries,offset);
           
     
          
@@ -133,7 +133,8 @@ var breweries=[];
         
         
          for (i=0; i < breweries.length; i++) {
-    
+    var itemNum=parseInt(offset+i);
+    console.log("Item num at beg of loop is "+ itemNum)
 /*dom push*/
        var mediaDiv=$("<div>");
        mediaDiv.addClass("media");
@@ -166,7 +167,8 @@ var breweries=[];
 
        var barNameSpan=$("<span>");
        barNameSpan.attr("id", "bar-name"+i);
-       barNameSpan.text((i+1) + ". " + breweries[i].name);
+       itemNum=parseInt(itemNum + 1);
+       barNameSpan.text(itemNum +  ". " + breweries[i].name);
 
       
 
@@ -231,7 +233,7 @@ var breweries=[];
             var brewAdd = breweries[i].location.address1 + " " + breweries[i].location.city + " " + breweries[i].location.zip_code;
             var brewPh = breweries[i].display_phone;
             var brewRat = breweries[i].rating;
-            var label = (i +1).toString();
+            var label = (itemNum).toString();
             createMarker(loc, brewName, brewAdd, brewPh, label, brewRat);
     
     
