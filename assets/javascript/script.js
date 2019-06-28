@@ -192,7 +192,7 @@ var breweries=[];
      }
 
 
-$("#media"+i).on("click", function () {
+$(".media").on("click", function () {
 
     $("#marker"+ this.value).setAnimation(google.maps.Animation.BOUNCE);
 });
