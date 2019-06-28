@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
  
-       
+    
 
 
 var breweries=[];
@@ -20,18 +20,59 @@ var breweries=[];
         var rating=0;
         var breweries=[];
         var offset=0;
-      
-        
-        
-       /* console.log("Search clicked")
-        zip = $("#zip").val().trim();
-        radius =$("#radius").val().trim();
-        rating =$("#rating").val().trim();
-    
-        console.log("zip is " + zip)
-        console.log("radius is " + radius)*/
 
-    $(".page-item").on("click", function (){
+    function getBrewPages () {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + zip + "&term=breweries&categories=breweries&rating=4&sort_by=distance&limit=50",
+                "method": "GET",
+                "headers": {
+                  "Authorization": "Bearer 8D_mZteQabQeW-jEZAK4kU4o9h7PhhECcqPsritDt99eippSSN851BkePtOuCLpVShTshzeKUUKDiHj51cX4vJMN0YZY_tPNJVTsapTBgoWt0dErzhHH1psW0FYKXXYx",
+                
+                }
+              }
+        
+        
+              $.ajax(settings).then(function(response) {
+        
+        var brewPages = Math.floor((response.businesses.length) / 10) + 1;
+        console.log("initial number of pages is " + brewPages)
+       
+        console.log("number of businesses is " + response.businesses.length )
+        
+        createNav();
+               
+        function createNav() {
+        
+            console.log("number of pages is " + brewPages)
+            offset=0;
+            for (i=1; i <= brewPages; i++ ) {
+                console.log("page " + i);
+                /*<li class="page-item page-link" value="0">1 - 10</li>*/
+
+                var navLi=$("<li>");
+                navLi.addClass("page item page-link");
+                navLi.attr("value", offset);
+                navLi.text(i);
+                $("#search-nav").append(navLi);
+                offset+=10;
+
+            }
+    
+        }
+
+              });
+        
+        }   
+      
+   
+   getBrewPages()
+
+
+  
+    
+   $(document).on ("click", ".page-link", function (){
     breweries=[];
     map = new google.maps.Map(document.getElementById('gmap'), {zoom: 11, center: mainloc}); 
     offset=$(this).attr("value");
@@ -71,6 +112,8 @@ var breweries=[];
           if (breweries.length===0) {
           $("#modal-error").modal("toggle");
           }
+
+        
          
           console.log(breweries);
           createBrews(breweries);
