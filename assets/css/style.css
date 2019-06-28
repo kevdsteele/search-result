@@ -80,3 +80,9 @@ width:50%;
   .rat-span {
    padding-left:5px;
   }
+
+  #results-header {
+background-color: #fef7e9;
+border: solid 1px; color:#bcbcbc;
+color:#d28816;
+  }
