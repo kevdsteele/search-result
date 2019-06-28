@@ -80,7 +80,7 @@ var breweries=[];
        var mediaDiv=$("<div>");
        mediaDiv.addClass("media");
        mediaDiv.attr("id", "media"+i);
-       mediaDiv.atrr("value", i);
+       mediaDiv.attr("value", i);
 
        $("#results").append(mediaDiv);
 
